@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="inner-container">
+    <h1>To do List</h1>
+
+    <div class="flex add-content">
+      <input [(ngModel)]="buffer" class="task-input" /><br />
+      <button (click)="addRecord()" class="add-task flex">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="white"
+          viewBox="0 0 32 32"
+        >
+          <path d="M17 15V8h-2v7H8v2h7v7h2v-7h7v-2z" />
+          <path fill="none" d="M0 0h32v32H0z" />
+        </svg>
+        <p>Add task</p>
+      </button>
+    </div>
+
+    <div class="content">
+      <ul *ngFor="let item of toDoList">
+        <li>
+          <div class="flex test">
+            <input type="checkbox" id="{{ item.id }}" name="{{ item.id }}" />
+            <input
+              [(ngModel)]="item.name"
+              name="toDoDescription"
+              [readonly]="item.isReadOnly"
+              (dblclick)="makeEditable(item.id)"
+              [ngClass]="{'task-description': item.isReadOnly, 'task-description-editable': !item.isReadOnly}"
+            />
+            <button
+              #myButton
+              (click)="updateRecord(item.id, myButton)"
+              [hidden]="item.isReadOnly"
+            >
+              Save
+            </button>
+          </div>
+          <div class="controls">
+            <button class="del-button flex" (click)="deleteRecord(item.id)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                fill="white"
+                viewBox="0 0 24 24"
+              >
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path
+                  d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"
+                />
+              </svg>
+              <p>Remove</p>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

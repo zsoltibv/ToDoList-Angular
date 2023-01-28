@@ -1,0 +1,92 @@
+* {
+  font-family: "Inter", sans-serif;
+}
+
+h1 {
+  font-size: 1.8rem;
+  color: white;
+  font-weight: 500;
+}
+
+.container {
+}
+
+.inner-container {
+  margin: 20px;
+}
+
+button {
+  background-color: #506ca4;
+  color: white;
+  padding: 6px 15px;
+  border-radius: 5px;
+  border: none;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.content {
+  margin-top: 20px;
+  width: 50%;
+}
+
+ul > li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  padding: 10px 12px;
+  background-color: #27292b;
+  border-radius: 5px;
+  margin: 8px 0;
+}
+
+ul > li input {
+  margin-right: 10px;
+}
+
+.del-button {
+  background-color: red;
+  padding: 6px 15px;
+}
+
+.del-button svg{
+  margin-right: 3px;
+}
+
+.add-task{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.add-task p {
+  color: white;
+}
+
+.task-input{
+  height: 30px;
+  border-radius: 5px;
+  margin-right: 10px;
+  padding: 0 10px;
+  min-width: 500px;
+}
+
+.task-description{
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+.task-description:hover{
+  border: white solid 1px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.task-description-editable{
+  background: lightgrey;
+}
