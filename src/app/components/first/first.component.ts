@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 
+export interface Record {
+  id: number, name: string, checked: boolean, isReadOnly: boolean
+}
+
 @Component({
   selector: 'app-first',
   templateUrl: './first.component.html',
   styleUrls: ['./first.component.css']
 })
+
 export class FirstComponent {
 
   constructor() {
@@ -13,12 +18,18 @@ export class FirstComponent {
 
   id = 0;
 
-  toDoList: { id: number, name: string, checked: boolean, isReadOnly: boolean }[] = [];
+  toDoList: Record[] = [];
 
   buffer: string = ""
 
   addRecord() {
-    this.toDoList.push({ "id": this.id, "name": this.buffer, "checked": false, "isReadOnly": true})
+    let myRecord: Record = {
+      id: this.id,
+      name: this.buffer,
+      checked: false,
+      isReadOnly: true
+    }
+    this.toDoList.push(myRecord)
     this.id++;
     console.log(this.toDoList)
   }
@@ -30,20 +41,30 @@ export class FirstComponent {
     console.log(this.toDoList);
   }
 
-  updateRecord(id:number, button:HTMLButtonElement) {
+  updateRecord(id: number, button: HTMLButtonElement, content: string) {
     button.hidden = true;
 
     var searchedIndex = this.toDoList.map(item => item.id).indexOf(id);
     this.toDoList[searchedIndex].isReadOnly = true;
+
+    this.toDoList[searchedIndex].name = content;
+
     console.log(this.toDoList);
   }
 
-  makeEditable(id:number){
+  makeEditable(id: number) {
     var searchedIndex = this.toDoList.map(item => item.id).indexOf(id);
     this.toDoList[searchedIndex].isReadOnly = false;
   }
 
-  makeVisible(button:HTMLButtonElement){
+  makeVisible(button: HTMLButtonElement) {
     button.hidden = true;
+  }
+
+  onLostFocus(id: number, input: HTMLInputElement) {
+    var searchedIndex = this.toDoList.map(item => item.id).indexOf(id);
+    input.value = this.toDoList[searchedIndex].name;
+    this.toDoList[searchedIndex].isReadOnly = true;
+
   }
 }

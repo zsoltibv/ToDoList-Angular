@@ -25,15 +25,17 @@
           <div class="flex test">
             <input type="checkbox" id="{{ item.id }}" name="{{ item.id }}" />
             <input
-              [(ngModel)]="item.name"
+              #myInput
+              [ngModel]="item.name"
               name="toDoDescription"
               [readonly]="item.isReadOnly"
               (dblclick)="makeEditable(item.id)"
               [ngClass]="{'task-description': item.isReadOnly, 'task-description-editable': !item.isReadOnly}"
+              (focusout)="onLostFocus(item.id, myInput)"
             />
             <button
               #myButton
-              (click)="updateRecord(item.id, myButton)"
+              (mousedown)="updateRecord(item.id, myButton, myInput.value)"
               [hidden]="item.isReadOnly"
             >
               Save
