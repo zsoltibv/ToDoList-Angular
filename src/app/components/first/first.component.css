@@ -31,7 +31,7 @@ button {
 
 .content {
   margin-top: 20px;
-  width: 50%;
+  max-width: 600px;
 }
 
 ul > li {

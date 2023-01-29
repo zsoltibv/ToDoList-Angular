@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 
-export interface Record {
-  id: number, name: string, checked: boolean, isReadOnly: boolean
+interface Record {
+  id: number,
+  name: string,
+  checked: boolean,
+  isReadOnly: boolean
 }
 
 @Component({
@@ -12,26 +15,49 @@ export interface Record {
 
 export class FirstComponent {
 
+  id: number = 0;
+  toDoList: Record[] = [];
+  name: string = ""
+
   constructor() {
     console.log('E gata componenta')
+    if (!localStorage.getItem("id")) {
+      localStorage.setItem("id", "0");
+    }else{
+      this.id = parseInt(localStorage.getItem("id") as string);
+    }
   }
 
-  id = 0;
-
-  toDoList: Record[] = [];
-
-  buffer: string = ""
+  ngOnInit(): void {
+    for (const [key, value] of Object.entries(localStorage)) {
+      if (key != "id") {
+        this.toDoList.push(JSON.parse(value));
+      }
+    }
+  }
 
   addRecord() {
     let myRecord: Record = {
       id: this.id,
-      name: this.buffer,
+      name: this.name,
       checked: false,
       isReadOnly: true
     }
     this.toDoList.push(myRecord)
-    this.id++;
     console.log(this.toDoList)
+
+    localStorage.setItem(
+      this.id.toString(),
+      JSON.stringify(myRecord)
+    );
+
+    if(!localStorage.getItem("id")){
+      localStorage.setItem("id", this.id.toString());
+      this.id++;
+    }else{
+      this.id++;
+      localStorage.setItem("id", this.id.toString());
+    }
   }
 
   deleteRecord(id: number) {
@@ -39,6 +65,8 @@ export class FirstComponent {
     var removeIndex = this.toDoList.map(item => item.id).indexOf(id);
     this.toDoList.splice(removeIndex, 1);
     console.log(this.toDoList);
+
+    localStorage.removeItem(id.toString());
   }
 
   updateRecord(id: number, button: HTMLButtonElement, content: string) {
@@ -46,10 +74,11 @@ export class FirstComponent {
 
     var searchedIndex = this.toDoList.map(item => item.id).indexOf(id);
     this.toDoList[searchedIndex].isReadOnly = true;
-
     this.toDoList[searchedIndex].name = content;
 
     console.log(this.toDoList);
+
+    localStorage.setItem(id.toString(), JSON.stringify(this.toDoList[searchedIndex]));
   }
 
   makeEditable(id: number) {
@@ -65,6 +94,5 @@ export class FirstComponent {
     var searchedIndex = this.toDoList.map(item => item.id).indexOf(id);
     input.value = this.toDoList[searchedIndex].name;
     this.toDoList[searchedIndex].isReadOnly = true;
-
   }
 }
