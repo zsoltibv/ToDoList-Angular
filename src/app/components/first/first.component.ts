@@ -100,4 +100,8 @@ export class FirstComponent {
     var searchedIndex = this.toDoList.map(item => item.id).indexOf(id);
     localStorage.setItem(id.toString(), JSON.stringify(this.toDoList[searchedIndex]));
   }
+
+  countUncheckedElements(){
+    return this.toDoList.map(item => item.isChecked).filter(isChecked => isChecked === false).length;
+  }
 }
