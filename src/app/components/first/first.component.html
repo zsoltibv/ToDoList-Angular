@@ -23,14 +23,24 @@
       <ul *ngFor="let item of toDoList">
         <li>
           <div class="flex test">
-            <input type="checkbox" id="{{ item.id }}" name="{{ item.id }}" />
+            <input
+              type="checkbox"
+              id="{{ item.id }}"
+              name="{{ item.id }}"
+              (change)="onCheckBox(item.id)"
+              [(ngModel)]="item.isChecked"
+            />
             <input
               #myInput
               [ngModel]="item.name"
               name="toDoDescription"
               [readonly]="item.isReadOnly"
               (dblclick)="makeEditable(item.id)"
-              [ngClass]="{'task-description': item.isReadOnly, 'task-description-editable': !item.isReadOnly}"
+              [ngClass]="{
+                'task-description': item.isReadOnly,
+                'task-description-editable': !item.isReadOnly,
+                'strike': item.isChecked
+              }"
               (focusout)="onLostFocus(item.id, myInput)"
             />
             <button

@@ -54,11 +54,11 @@ ul > li input {
   padding: 6px 15px;
 }
 
-.del-button svg{
+.del-button svg {
   margin-right: 3px;
 }
 
-.add-task{
+.add-task {
   margin-top: 30px;
   margin-bottom: 30px;
 }
@@ -67,7 +67,7 @@ ul > li input {
   color: white;
 }
 
-.task-input{
+.task-input {
   height: 30px;
   border-radius: 5px;
   margin-right: 10px;
@@ -75,18 +75,22 @@ ul > li input {
   min-width: 500px;
 }
 
-.task-description{
+.task-description {
   background: transparent;
   border: none;
   color: white;
 }
 
-.task-description:hover{
+.task-description:hover {
   border: white solid 1px;
   cursor: pointer;
   border-radius: 3px;
 }
 
-.task-description-editable{
+.task-description-editable {
   background: lightgrey;
+}
+
+.strike {
+  text-decoration: line-through;
 }

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 interface Record {
   id: number,
   name: string,
-  checked: boolean,
+  isChecked: boolean,
   isReadOnly: boolean
 }
 
@@ -23,7 +23,7 @@ export class FirstComponent {
     console.log('E gata componenta')
     if (!localStorage.getItem("id")) {
       localStorage.setItem("id", "0");
-    }else{
+    } else {
       this.id = parseInt(localStorage.getItem("id") as string);
     }
   }
@@ -40,7 +40,7 @@ export class FirstComponent {
     let myRecord: Record = {
       id: this.id,
       name: this.name,
-      checked: false,
+      isChecked: false,
       isReadOnly: true
     }
     this.toDoList.push(myRecord)
@@ -51,10 +51,10 @@ export class FirstComponent {
       JSON.stringify(myRecord)
     );
 
-    if(!localStorage.getItem("id")){
+    if (!localStorage.getItem("id")) {
       localStorage.setItem("id", this.id.toString());
       this.id++;
-    }else{
+    } else {
       this.id++;
       localStorage.setItem("id", this.id.toString());
     }
@@ -94,5 +94,10 @@ export class FirstComponent {
     var searchedIndex = this.toDoList.map(item => item.id).indexOf(id);
     input.value = this.toDoList[searchedIndex].name;
     this.toDoList[searchedIndex].isReadOnly = true;
+  }
+
+  onCheckBox(id: number) {
+    var searchedIndex = this.toDoList.map(item => item.id).indexOf(id);
+    localStorage.setItem(id.toString(), JSON.stringify(this.toDoList[searchedIndex]));
   }
 }
